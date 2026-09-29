@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f14"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<title>TradeMind — Analyze Smarter. Trade With Data.</title>
+<style>
+:root{--bg:#0b0f14;--card:#121821;--bd:#1f2833;--tx:#e6edf3;--mut:#8b98a5;--g:#22c55e;--r:#ef4444;--y:#f5b942;--ac:#4c8dff;--in:#0d131b;--bar:#1a222d;--bu:#12351f;--bdn:#3b1518;--bw:#3a2a05;--tt:#182231;--dmd:#5a4210;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f5f7fa;--card:#fff;--bd:#dfe5ec;--tx:#0f1720;--mut:#5b6875;--g:#15a34a;--r:#dc2626;--y:#b7791f;--ac:#2563eb;--in:#f0f3f7;--bar:#e5eaf0;--bu:#dcfce7;--bdn:#fee2e2;--bw:#fef3c7;--tt:#fff;--dmd:#f5d98a;color-scheme:light;}}
+:root[data-theme="light"]{--bg:#f5f7fa;--card:#fff;--bd:#dfe5ec;--tx:#0f1720;--mut:#5b6875;--g:#15a34a;--r:#dc2626;--y:#b7791f;--ac:#2563eb;--in:#f0f3f7;--bar:#e5eaf0;--bu:#dcfce7;--bdn:#fee2e2;--bw:#fef3c7;--tt:#fff;--dmd:#f5d98a;color-scheme:light;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bd)}
+.logo b{font-size:20px;letter-spacing:-.5px}.logo b i{color:var(--ac);font-style:normal}.logo small{display:block;color:var(--mut);font-size:11px}
+input,select,button{background:var(--in);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;font:inherit}
+button{cursor:pointer;transition:.15s}button:hover{border-color:var(--ac)}button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.demo{background:var(--bw);color:var(--y);border-bottom:1px solid var(--dmd);text-align:center;font-size:12px;padding:5px;font-weight:600;letter-spacing:.5px}
+nav{display:flex;gap:6px;padding:10px 16px;overflow-x:auto}
+main{padding:0 16px 24px;max-width:1400px;margin:auto}.view{display:none;animation:f .25s}.view.on{display:block}@keyframes f{from{opacity:0;transform:translateY(4px)}}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.grid>*{grid-column:span 12;min-width:0}
+@media(min-width:900px){.s4{grid-column:span 4!important}.s5{grid-column:span 5!important}.s6{grid-column:span 6!important}.s7{grid-column:span 7!important}.s8{grid-column:span 8!important}.s2{grid-column:span 2!important}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px}
+.card h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}.stat span{display:block;color:var(--mut);font-size:11px}.stat b{font-size:17px}
+.up{color:var(--g)}.dn{color:var(--r)}.mu{color:var(--mut)}.wt{color:var(--y)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}th{color:var(--mut);font-weight:500;font-size:11px}
+td.why{white-space:normal;min-width:180px;color:var(--mut)}
+canvas{width:100%;display:block;touch-action:pan-y}#chart{height:340px}
+.tfs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.tfs label{color:var(--mut);font-size:12px;display:flex;align-items:center;gap:4px}
+.big{font-size:38px;font-weight:800;letter-spacing:1px}.bar{height:8px;border-radius:4px;background:var(--bar);overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;transition:width .4s}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}.form label{font-size:11px;color:var(--mut);display:block}.form input,.form select{width:100%}
+.note{font-size:11px;color:var(--mut);margin-top:8px}.badge{padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700}
+.b-up{background:var(--bu);color:var(--g)}.b-dn{background:var(--bdn);color:var(--r)}.b-wt{background:var(--bw);color:var(--y)}
+#toast{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:9}#toast div{background:var(--tt);border:1px solid var(--ac);padding:10px 14px;border-radius:10px;max-width:300px}
+footer{color:var(--mut);font-size:11px;text-align:center;padding:16px}
+</style></head><body>
+<header><div class="logo"><b>Trade<i>Mind</i></b><small>Analyze Smarter. Trade With Data.</small></div>
+<div><input id="q" list="al" placeholder="Search BTC, EUR/USD, NASDAQ…" style="width:min(260px,70vw)"><select id="ex"></select> <datalist id="al"></datalist> <button id="th" title="Toggle light/dark theme">◐ Theme</button></div></header>
+<div class="demo" id="dm">DEMO DATA — NOT LIVE MARKET DATA</div>
+<nav id="nav"><button data-v="dash" class="on">Dashboard</button><button data-v="bt">Backtest</button><button data-v="hist">Signal History</button><button data-v="alr">Alerts</button></nav>
+<main>
+<section id="v-dash" class="view on"><div class="grid">
+<div class="card" style="grid-column:span 12"><div class="stats" id="mkt"></div></div>
+<div class="card s8"><h3 id="ct">Chart</h3><div class="tfs" id="tfs"></div>
+<div class="tfs"><label><input type="checkbox" id="oE" checked>EMA</label><label><input type="checkbox" id="oB">Bollinger</label><label><input type="checkbox" id="oF">Fibonacci</label><label><input type="checkbox" id="oS" checked>S/R</label></div><canvas id="chart"></canvas></div>
+<div class="card s4" id="sig"></div>
+<div class="card s7"><h3>Multi-strategy engine — what contributed to the score</h3><div class="tw" id="strat"></div></div>
+<div class="card s5"><h3>Trade setup &amp; position size</h3><div class="form"><div><label>Account balance</label><input id="bal" type="number" value="10000"></div><div><label>Risk %</label><input id="rk" type="number" value="1" step=".1"></div><div><label>Entry (blank = market)</label><input id="en" type="number" step="any"></div></div><div id="setup"></div></div>
+<div class="card s6"><h3>Technical indicators</h3><div class="tw" id="ind"></div></div>
+<div class="card s6"><h3>Market regime &amp; levels</h3><div id="reg"></div></div>
+</div></section>
+<section id="v-bt" class="view"><div class="card"><h3>Backtest</h3><div class="form" id="btf"></div><button id="run" class="on">Run backtest</button> <button id="cmp">Compare all strategies</button> <button id="scan">Scan top 20 coins</button><div class="tw" id="cmpr" style="margin-top:12px"></div><div class="tw" id="scr" style="margin-top:12px"></div>
+<div id="btr" style="margin-top:14px"></div><canvas id="eq" height="160"></canvas>
+<div class="note">Historical performance does not guarantee future results. Backtests run on real exchange history for crypto (live file) and simulated data for other assets, with a fixed rule set: entry at next open, stop 1.5×ATR, target 2.5R, max hold 50 bars, fees and slippage as entered above (default 0.12% per side).</div></div></section>
+<section id="v-hist" class="view"><div class="card"><h3>Signal history (rule-based, from backtest engine)</h3><div class="form"><div><label>Asset (blank = top 6)</label><input id="ha" list="al" placeholder="top 6 coins"></div><div><label>Timeframe</label><select id="ht"></select></div></div><div class="tw" id="hr"></div></div></section>
+<section id="v-alr" class="view"><div class="card"><h3>Create alert</h3><div class="form"><div><label>Asset</label><input id="aa" list="al"></div><div><label>Timeframe</label><select id="at"></select></div><div><label>Condition</label><select id="ay"><option value="sigB">BUY signal ≥ strength</option><option value="sigS">SELL signal ≥ strength</option><option value="pa">Price above</option><option value="pb">Price below</option><option value="ra">RSI above</option><option value="rb">RSI below</option><option value="mb">MACD bullish crossover</option><option value="ms">MACD bearish crossover</option><option value="bo">Breakout detected</option></select></div><div><label>Value</label><input id="av" type="number" value="80" step="any"></div></div><button id="add" class="on">Add alert</button>
+<div class="tw" id="alist" style="margin-top:12px"></div></div></section>
+</main>
+<footer>TradeMind is an analysis tool, not financial advice. Signal Strength is a weighted technical-agreement score — not a probability of winning. Trading involves risk of loss.</footer>
+<div id="toast"></div>
+<script>
+'use strict';
+/* ============ Config ============ */
+const $=s=>document.querySelector(s),TF={'1m':1,'5m':5,'15m':15,'1H':60,'4H':240,'1D':1440};
+const ASSETS=[['BTC/USDT',64000,.03,2,'BTCUSDT'],['ETH/USDT',3200,.035,2,'ETHUSDT'],['SOL/USDT',150,.05,2,'SOLUSDT'],['BNB/USDT',580,.03,2,'BNBUSDT'],['XRP/USDT',.52,.04,4,'XRPUSDT'],['EUR/USD',1.085,.005,5],['GBP/USD',1.27,.006,5],['XAU/USD',2350,.01,2],['NASDAQ',18200,.012,2],['S&P 500',5300,.009,2],['AAPL',190,.015,2],['TSLA',250,.03,2]].map(a=>({s:a[0],p:a[1],v:a[2],d:a[3],l:a[4],ex:a[4]?'Binance':undefined}));
+const $$a=s=>{s=(s||'').trim().toLowerCase();return ASSETS.find(a=>a.s.toLowerCase()===s)||ASSETS.find(a=>a.s.toLowerCase().startsWith(s+'/'))||ASSETS.find(a=>a.s.toLowerCase().includes(s))};
+/* ============ Data provider (swap this object for a real API) ============ */
+const Data={
+ N:1400,
+ rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}},
+ hash(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0},
+ // Replace with fetch(...) returning [{t,o,h,l,c,v}, ...] oldest→newest
+ async getCandles(a,tf){if(a.l){try{return await this.live(a,tf)}catch(e){if(!a.p)throw e;toast('Live feed unavailable for '+a.s+' — showing DEMO DATA ('+(e.message||e)+')')}}return this.demo(a,tf)},
+ demo(a,tf){const r=this.rng(this.hash(a.s+tf)),g=()=>(r()+r()+r()-1.5)*2,m=TF[tf],sg=a.v*Math.sqrt(m/1440),ph=20+this.hash(a.s)%40,now=Date.now(),cs=[];let p=a.p;
+  for(let i=0;i<this.N;i++){const dr=.5*sg*Math.sin(i/ph)+.3*sg*Math.sin(i/(ph*4.3)),ret=dr+sg*g()*(1+.6*Math.sin(i/90)**2),o=p;p=o*(1+ret);
+   cs.push({t:now-(this.N-i)*m*6e4,o,c:p,h:Math.max(o,p)*(1+Math.abs(g())*sg*.35),l:Math.min(o,p)*(1-Math.abs(g())*sg*.35),v:1e3*(1+Math.abs(ret)/sg*.8)*(.5+r())})}
+  const k=a.p/p;cs.forEach(c=>{c.o*=k;c.c*=k;c.h*=k;c.l*=k});return cs},
+
+ EX:(()=>{const J=async u=>{const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);return r.json()},
+  bn=(hosts,tf,lim)=>({hosts,tf,sym:b=>b+'USDT',list:async h=>(await J(h+'/api/v3/ticker/24hr')).filter(t=>/USDT$/.test(t.symbol)&&!/(UP|DOWN|BULL|BEAR)USDT$/.test(t.symbol)).map(t=>[t.symbol.slice(0,-4),+t.quoteVolume]),k:async(h,l,i)=>(await J(`${h}/api/v3/klines?symbol=${l}&interval=${i}&limit=${lim}`)).map(k=>k.slice(0,6))}),
+  std={'1m':'1m','5m':'5m','15m':'15m','1H':'1h','4H':'4h','1D':'1d'};
+  return{
+  Binance:bn(['https://api.binance.com','https://data-api.binance.vision'],std,1000),
+  MEXC:bn(['https://api.mexc.com'],{...std,'1H':'60m'},500),
+  Bybit:{hosts:['https://api.bybit.com'],tf:{'1m':'1','5m':'5','15m':'15','1H':'60','4H':'240','1D':'D'},sym:b=>b+'USDT',list:async h=>(await J(h+'/v5/market/tickers?category=spot')).result.list.filter(t=>/USDT$/.test(t.symbol)).map(t=>[t.symbol.slice(0,-4),+t.turnover24h]),k:async(h,l,i)=>(await J(`${h}/v5/market/kline?category=spot&symbol=${l}&interval=${i}&limit=1000`)).result.list.map(k=>k.slice(0,6))},
+  OKX:{hosts:['https://www.okx.com'],tf:{'1m':'1m','5m':'5m','15m':'15m','1H':'1H','4H':'4H','1D':'1D'},sym:b=>b+'-USDT',list:async h=>(await J(h+'/api/v5/market/tickers?instType=SPOT')).data.filter(t=>/-USDT$/.test(t.instId)).map(t=>[t.instId.split('-')[0],+t.volCcy24h]),k:async(h,l,i)=>{let out=[],after='';for(let p=0;p<3;p++){const j=(await J(`${h}/api/v5/market/candles?instId=${l}&bar=${i}&limit=300${after}`)).data;if(!j||!j.length)break;out=out.concat(j.map(k=>k.slice(0,6)));after='&after='+j[j.length-1][0]}return out}},
+  Bitget:{hosts:['https://api.bitget.com'],tf:{'1m':'1min','5m':'5min','15m':'15min','1H':'1h','4H':'4h','1D':'1day'},sym:b=>b+'USDT',list:async h=>(await J(h+'/api/v2/spot/market/tickers')).data.filter(t=>/USDT$/.test(t.symbol)).map(t=>[t.symbol.slice(0,-4),+t.usdtVolume||+t.quoteVolume||0]),k:async(h,l,i)=>(await J(`${h}/api/v2/spot/market/candles?symbol=${l}&granularity=${i}&limit=1000`)).data.map(k=>k.slice(0,6))},
+  KuCoin:{hosts:['https://api.kucoin.com'],tf:{'1m':'1min','5m':'5min','15m':'15min','1H':'1hour','4H':'4hour','1D':'1day'},sym:b=>b+'-USDT',list:async h=>(await J(h+'/api/v1/market/allTickers')).data.ticker.filter(t=>/-USDT$/.test(t.symbol)).map(t=>[t.symbol.split('-')[0],+t.volValue]),k:async(h,l,i)=>(await J(`${h}/api/v1/market/candles?type=${i}&symbol=${l}`)).data.map(k=>[k[0]*1000,k[1],k[3],k[4],k[2],k[5]])}}})(),
+ c2:k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]}),
+ merge(e,c){const L=e.cs[e.cs.length-1];if(c.t===L.t)e.cs[e.cs.length-1]=c;else if(c.t>L.t){e.cs.push(c);e.cs.shift()}e.ind=I.all(e.cs);e.ts=Date.now()},
+ async live(a,tf){const X=this.EX[a.ex];let err;for(const h of X.hosts){try{const cs=(await X.k(h,a.l,X.tf[tf])).map(this.c2).sort((p,q)=>p.t-q.t).filter((c,i,A)=>!i||c.t!==A[i-1].t);if(cs.length<300)throw new Error('only '+cs.length+' candles available');cs.live=true;cs.host=h;return cs}catch(e){err=e}}throw err},
+ stream(e){try{const ws=new WebSocket(`wss://stream.binance.com:9443/ws/${e.a.l.toLowerCase()}@kline_${this.EX.Binance.tf[e.tf]}`);ws.onmessage=m=>{const k=JSON.parse(m.data).k;this.merge(e,{t:k.t,o:+k.o,h:+k.h,l:+k.l,c:+k.c,v:+k.v})};ws.onopen=()=>{e.ws=true};ws.onclose=ws.onerror=()=>{e.ws=false}}catch(x){}},
+ async poll(e){try{const X=this.EX[e.a.ex];(await X.k(e.host,e.a.l,X.tf[e.tf])).map(this.c2).sort((p,q)=>p.t-q.t).slice(-2).forEach(c=>this.merge(e,c))}catch(x){}},
+ tick(cs,a,tf){const c=cs[cs.length-1],sg=a.v*Math.sqrt(TF[tf]/1440)*.12,n=c.c*(1+sg*(Math.random()+Math.random()-1)*2);c.c=n;c.h=Math.max(c.h,n);c.l=Math.min(c.l,n);c.v*=1.002}
+};
+/* ============ Indicators ============ */
+const I={
+ sma(a,n){return a.map((_,i)=>i<n-1?NaN:a.slice(i-n+1,i+1).reduce((x,y)=>x+y)/n)},
+ ema(a,n,raw){const k=2/(n+1);let p;return a.map((x,i)=>{p=i?x*k+p*(1-k):x;return raw||i>=n-1?p:NaN})},
+ rsi(c,n=14){const o=Array(c.length).fill(NaN);let g=0,l=0;for(let i=1;i<c.length;i++){const d=c[i]-c[i-1],u=Math.max(d,0),w=Math.max(-d,0);if(i<=n){g+=u/n;l+=w/n}else{g=(g*(n-1)+u)/n;l=(l*(n-1)+w)/n}if(i>=n)o[i]=l?100-100/(1+g/l):100}return o},
+ macd(c){const a=I.ema(c,12,1),b=I.ema(c,26,1),m=a.map((x,i)=>x-b[i]),s=I.ema(m,9,1);return{m:m.map((x,i)=>i<33?NaN:x),s:s.map((x,i)=>i<33?NaN:x),h:m.map((x,i)=>i<33?NaN:x-s[i])}},
+ bb(c,n=20){const m=I.sma(c,n);const sd=c.map((_,i)=>{if(i<n-1)return NaN;const q=c.slice(i-n+1,i+1);return Math.sqrt(q.reduce((s,x)=>s+(x-m[i])**2,0)/n)});return{m,u:m.map((x,i)=>x+2*sd[i]),l:m.map((x,i)=>x-2*sd[i])}},
+ atr(cs,n=14){const o=Array(cs.length).fill(NaN);let a=0;for(let i=1;i<cs.length;i++){const t=Math.max(cs[i].h-cs[i].l,Math.abs(cs[i].h-cs[i-1].c),Math.abs(cs[i].l-cs[i-1].c));if(i<=n){a+=t/n}else a=(a*(n-1)+t)/n;if(i>=n)o[i]=a}return o},
+ all(cs){const c=cs.map(x=>x.c);return{c,e20:I.ema(c,20),e50:I.ema(c,50),e200:I.ema(c,200),rsi:I.rsi(c),macd:I.macd(c),bb:I.bb(c),atr:I.atr(cs),va:I.sma(cs.map(x=>x.v),20)}},
+ piv(cs,from,k=4){const H=[],L=[];for(let i=from+k;i<cs.length-k;i++){let hi=1,lo=1;for(let j=i-k;j<=i+k;j++){if(cs[j].h>cs[i].h)hi=0;if(cs[j].l<cs[i].l)lo=0}if(hi)H.push({i,p:cs[i].h});if(lo)L.push({i,p:cs[i].l})}return{H,L}},
+ fib(cs){const q=cs.slice(-100),hi=Math.max(...q.map(x=>x.h)),lo=Math.min(...q.map(x=>x.l)),up=q.findIndex(x=>x.l===lo)<q.findIndex(x=>x.h===hi);return[.236,.382,.5,.618,.786].map(r=>({r,p:up?hi-r*(hi-lo):lo+r*(hi-lo)}))},
+ pat(cs,i){const c=cs[i],p=cs[i-1],b=Math.abs(c.c-c.o),rg=c.h-c.l||1e-9,up=c.h-Math.max(c.o,c.c),dn=Math.min(c.o,c.c)-c.l,o=[];
+  if(b/rg<.1)o.push(['Doji',0]);if(b>0&&dn>2*b&&up<b)o.push(['Hammer',1]);if(b>0&&up>2*b&&dn<b)o.push(['Shooting star',-1]);
+  if(p.c<p.o&&c.c>c.o&&c.c>=p.o&&c.o<=p.c)o.push(['Bullish engulfing',1]);if(p.c>p.o&&c.c<c.o&&c.c<=p.o&&c.o>=p.c)o.push(['Bearish engulfing',-1]);return o}
+};
+/* ============ Strategy engine ============ */
+const hiN=(cs,i,n)=>Math.max(...cs.slice(i-n,i).map(c=>c.h)),loN=(cs,i,n)=>Math.min(...cs.slice(i-n,i).map(c=>c.l));
+const S=[
+ {k:'Trend',f:(x,cs,i)=>{const a=x.e20[i],b=x.e50[i],c=x.e200[i];return a>b&&b>c?[1,'EMA20 > EMA50 > EMA200 (bullish stack)']:a<b&&b<c?[-1,'EMA20 < EMA50 < EMA200 (bearish stack)']:[0,'EMAs not aligned']}},
+ {k:'Momentum',f:(x,cs,i)=>{const r=x.c[i]/x.c[i-10]-1,t=x.atr[i]/x.c[i];return r>t?[1,`10-bar ROC ${(r*100).toFixed(2)}% > 1 ATR`]:r<-t?[-1,`10-bar ROC ${(r*100).toFixed(2)}% < -1 ATR`]:[0,'Momentum inside ±1 ATR']}},
+ {k:'RSI',f:(x,cs,i)=>{const r=x.rsi[i];return r<35?[1,`RSI ${r.toFixed(1)} oversold`]:r>65?[-1,`RSI ${r.toFixed(1)} overbought`]:[0,`RSI ${r.toFixed(1)} neutral`]}},
+ {k:'MACD',f:(x,cs,i)=>{const h=x.macd.h[i],p=x.macd.h[i-1];return h>0&&h>p?[1,'Histogram positive & rising']:h<0&&h<p?[-1,'Histogram negative & falling']:[0,'Histogram fading / flat']}},
+ {k:'Support/Resistance',f:(x,cs,i)=>{const lo=loN(cs,i,40),hi=hiN(cs,i,40),c=x.c[i],a=x.atr[i];return c-lo<.6*a?[1,'Price at 40-bar support']:hi-c<.6*a?[-1,'Price at 40-bar resistance']:[0,'Between support and resistance']}},
+ {k:'Volume',f:(x,cs,i)=>{const c=cs[i],r=c.v/x.va[i];return r>1.3&&c.c>c.o?[1,`Volume ${r.toFixed(1)}× avg on up candle`]:r>1.3&&c.c<c.o?[-1,`Volume ${r.toFixed(1)}× avg on down candle`]:[0,`Volume ${r.toFixed(1)}× avg (no surge)`]}},
+ {k:'Breakout',f:(x,cs,i)=>x.c[i]>hiN(cs,i,20)?[1,'Close above 20-bar high']:x.c[i]<loN(cs,i,20)?[-1,'Close below 20-bar low']:[0,'Inside 20-bar range']},
+ {k:'Candle Pattern',f:(x,cs,i)=>{const p=I.pat(cs,i),s=p.reduce((a,b)=>a+b[1],0);return[Math.sign(s),p.length?p.map(z=>z[0]).join(', '):'No pattern']}}
+];
+const W={strong:{Trend:1.5,Momentum:1.3,RSI:.5,MACD:1.2,'Support/Resistance':.6,Volume:1,Breakout:1.2,'Candle Pattern':.7},weak:{Trend:1.2,Momentum:1,RSI:.8,MACD:1,'Support/Resistance':.8,Volume:1,Breakout:1,'Candle Pattern':.7},side:{Trend:.5,Momentum:.5,RSI:1.5,MACD:.6,'Support/Resistance':1.5,Volume:.8,Breakout:.6,'Candle Pattern':1},highVol:{Trend:1,Momentum:1,RSI:.7,MACD:.9,'Support/Resistance':.8,Volume:1,Breakout:1.2,'Candle Pattern':.6},lowVol:{Trend:.9,Momentum:.7,RSI:1.2,MACD:.8,'Support/Resistance':1.2,Volume:.8,Breakout:.8,'Candle Pattern':1}};
+const NOTE={strong:'Trend-following rules weighted up.',weak:'Balanced weights, mild trend bias.',side:'Mean-reversion (RSI, S/R) weighted up; trend rules weighted down.',highVol:'Breakout weighted up; wider stops advisable.',lowVol:'Range rules weighted up; breakouts less reliable.'};
+function regime(x,i){let s=0;for(let j=i-100;j<i;j++)s+=x.atr[j]/x.c[j];const ratio=(x.atr[i]/x.c[i])/(s/100),sl=(x.e50[i]-x.e50[i-10])/x.atr[i],up=x.e20[i]>x.e50[i]&&x.e50[i]>x.e200[i],dn=x.e20[i]<x.e50[i]&&x.e50[i]<x.e200[i];let key,label;
+ if(ratio>1.5){key='highVol';label='High volatility'}else if(ratio<.65){key='lowVol';label='Low volatility'}else if(up&&sl>1){key='strong';label='Strong uptrend'}else if(dn&&sl<-1){key='strong';label='Strong downtrend'}else if(up||sl>.4){key='weak';label='Weak uptrend'}else if(dn||sl<-.4){key='weak';label='Weak downtrend'}else{key='side';label='Sideways'}
+ return{key,label,ratio,slope:sl,note:NOTE[key]}}
+function analyze(x,cs,i){const rg=regime(x,i),w=W[rg.key],v=S.map(s=>{const[sg,why]=s.f(x,cs,i);return{k:s.k,sg,why,w:w[s.k]}}),tw=v.reduce((a,b)=>a+b.w,0);v.forEach(o=>o.pts=o.w*o.sg/tw*100);
+ const net=v.reduce((a,b)=>a+b.pts,0),sig=net>=30?1:net<=-30?-1:0;return{v,net,score:Math.round(Math.abs(net)),sig,rg,agree:v.filter(o=>o.sg===sig).length}}
+const SIGN=s=>s>0?'BUY':s<0?'SELL':'WAIT',CLS=s=>s>0?'up':s<0?'dn':'wt';
+/* ============ Trade setup ============ */
+function setup(sig,entry,atr,bal,rk){const d=sig<0?-1:1,rd=1.5*atr,stop=entry-d*rd,units=bal*rk/100/rd;
+ return{d,stop,rd,units,notional:units*entry,maxLoss:bal*rk/100,pct:rd/entry*100,tps:[1.5,2.5,4].map(R=>({R,p:entry+d*R*rd,gain:units*R*rd}))}}
+/* ============ Backtest ============ */
+const BT={run(ent,{strat,bars,bal,risk,fee=0}){const{cs,ind:x}=ent,n=cs.length,st=Math.max(200,n-bars),T=[];let eq=bal,pk=bal,dd=0,prev=0;const curve=[bal];
+ for(let i=st;i<n-1;i++){let sig,score=0;if(strat==='All'){const r=analyze(x,cs,i);sig=r.sig;score=r.score}else sig=S.find(s=>s.k===strat).f(x,cs,i)[0];
+  if(sig&&sig!==prev){const en=cs[i+1].o,rd=1.5*x.atr[i];if(rd>0){const stop=en-sig*rd,tp=en+sig*2.5*rd,ra=eq*risk/100,u=ra/rd;let px,res,j=i+1;
+   for(;j<=Math.min(i+50,n-1);j++){const c=cs[j];const hs=sig>0?c.l<=stop:c.h>=stop,ht=sig>0?c.h>=tp:c.l<=tp;if(hs){px=stop;res='LOSS';break}if(ht){px=tp;res='WIN';break}if(j===Math.min(i+50,n-1)){px=c.c;res=j===n-1&&j<i+50?'OPEN':(px-en)*sig>0?'WIN':'LOSS'}}
+   const pnl=res==='OPEN'?0:u*(px-en)*sig-u*(en+px)*fee/100;if(res!=='OPEN'){eq+=pnl;pk=Math.max(pk,eq);dd=Math.max(dd,(pk-eq)/pk);curve.push(eq)}
+   T.push({t:cs[i+1].t,sym:ent.a.s,sig,en,stop,tp,res,pnl,r:pnl/ra,score});i=Math.min(j,n-2)}}prev=sig}
+ const cl=T.filter(t=>t.res!=='OPEN'),w=cl.filter(t=>t.pnl>0),l=cl.filter(t=>t.pnl<=0),gw=w.reduce((a,t)=>a+t.pnl,0),gl=-l.reduce((a,t)=>a+t.pnl,0);
+ return{T,curve,n:cl.length,w:w.length,l:l.length,wr:cl.length?w.length/cl.length*100:0,pf:gl?gw/gl:(gw?Infinity:0),dd:dd*100,net:eq-bal,aw:w.length?gw/w.length:0,al:l.length?gl/l.length:0,bw:Math.max(0,...cl.map(t=>t.pnl)),bl:Math.min(0,...cl.map(t=>t.pnl)),rw:w.length?w.reduce((a,t)=>a+t.r,0)/w.length:0,rl:l.length?-l.reduce((a,t)=>a+t.r,0)/l.length:0}}};
+/* ============ State / cache ============ */
+const LS={get(k,d){try{const v=localStorage.getItem('tm-'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('tm-'+k,JSON.stringify(v))}catch(e){}}};
+const P=LS.get('prefs',{}),Cache={},st={a:$$a(P.a)||ASSETS[0],tf:TF[P.tf]?P.tf:'1H',alerts:[],ex:Data.EX[P.ex]?P.ex:'Binance',hist:null};
+const ck=(a,tf)=>(a.ex||'demo')+'|'+a.s+'|'+tf,dec=p=>p>=100?2:p>=1?4:p>=.01?5:8,fillAl=()=>{$('#al').innerHTML=ASSETS.slice(0,400).map(a=>`<option>${a.s}</option>`).join('')};
+{const th=LS.get('theme',null);if(th)document.documentElement.dataset.theme=th}
+const sp=()=>LS.set('prefs',{a:st.a.s,tf:st.tf,ex:st.ex,bal:$('#bal').value,rk:$('#rk').value});
+async function ent(a,tf){const k=ck(a,tf),o=Cache[k];if(o&&o.live&&o!==st.e&&Date.now()-(o.ts||o.t0)>60000)delete Cache[k];
+ if(!Cache[k]){const cs=await Data.getCandles(a,tf);if(a.l&&cs.live)a.d=dec(cs[cs.length-1].c);const e=Cache[k]={a,tf,cs,live:!!cs.live,host:cs.host,t0:Date.now(),ind:I.all(cs)};if(e.live&&a.ex==='Binance')Data.stream(e)}return Cache[k]}
+async function loadList(ex){const X=Data.EX[ex];let rows,err;for(const h of X.hosts){try{rows=await X.list(h);break}catch(e){err=e}}if(!rows||!rows.length)throw err||new Error('empty list');
+ rows.sort((p,q)=>q[1]-p[1]);const demo=ASSETS.filter(a=>!a.l);ASSETS.length=0;ASSETS.push(...rows.map(([b])=>({s:b+'/USDT',l:X.sym(b),ex,d:4})),...demo);fillAl();return rows.length}
+const fp=(v,a=st.a)=>isFinite(v)?v.toLocaleString('en-US',{minimumFractionDigits:a.d,maximumFractionDigits:a.d}):'—',fv=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(0);
+const sgn=(v,d=2)=>(v>=0?'+':'')+v.toFixed(d);
+/* ============ Render: dashboard ============ */
+async function load(){sp();let e;try{e=await ent(st.a,st.tf)}catch(x){toast('Could not load '+st.a.s+' from '+st.ex+': '+(x.message||x));return}st.e=e;st.wr=BT.run(e,{strat:'All',bars:500,bal:1e4,risk:1});render()}
+function render(){const{cs,ind:x}=st.e,i=cs.length-1,a=st.a,c=cs[i],A=analyze(x,cs,i);st.A=A;
+ const nb=Math.min(cs.length-1,Math.max(2,Math.ceil(1440/TF[st.tf]))),w=cs.slice(-nb),ch=(c.c/cs[i-nb].c-1)*100;
+ $('#ct').textContent=`${a.s} · ${st.tf} · ${st.e.live?'live':'simulated'}`;
+ {const dm=$('#dm');if(st.e.live){dm.textContent='LIVE DATA — '+a.ex+' public market feed · analysis only, not advice';dm.style.cssText='background:var(--bu);color:var(--g)'}else{dm.textContent=a.l?'LIVE FEED UNAVAILABLE — SHOWING DEMO DATA, NOT LIVE MARKET DATA':'DEMO DATA — NOT LIVE MARKET DATA';dm.style.cssText=''}}
+ $('#mkt').innerHTML=`<div class="stat"><span>Price</span><b class="mono">${fp(c.c)}</b></div><div class="stat"><span>24h change</span><b class="${ch>=0?'up':'dn'}">${sgn(ch)}%</b></div><div class="stat"><span>24h high</span><b class="mono">${fp(Math.max(...w.map(z=>z.h)))}</b></div><div class="stat"><span>24h low</span><b class="mono">${fp(Math.min(...w.map(z=>z.l)))}</b></div><div class="stat"><span>Volume (24h)</span><b>${fv(w.reduce((s,z)=>s+z.v,0))}</b></div><div class="stat"><span>Market trend</span><b class="${A.rg.label.includes('up')?'up':A.rg.label.includes('down')?'dn':'wt'}">${A.rg.label}</b></div>`;
+ const col=`var(--${A.sig>0?'g':A.sig<0?'r':'y'})`;
+ $('#sig').innerHTML=`<h3>Overall signal</h3><div class="big ${CLS(A.sig)}">${SIGN(A.sig)}</div><div class="mu">Signal Strength <b style="color:var(--tx)">${A.score}/100</b></div><div class="bar"><i style="width:${A.score}%;background:${col}"></i></div>
+ <table><tr><td class="mu">Technical Agreement</td><td>${A.agree} of ${A.v.length} strategies</td></tr><tr><td class="mu">Historical Win Rate</td><td>${st.wr.n?st.wr.wr.toFixed(0)+'% ('+st.wr.n+' trades)':'n/a'}</td></tr><tr><td class="mu">Backtest Result</td><td class="${st.wr.net>=0?'up':'dn'}">${sgn(st.wr.net,0)} on 10k, last 500 bars</td></tr></table>
+ <div class="note">Signal Strength is the weighted net agreement of the rules below, not a probability. Historical win rate is a backtest of these same rules on this asset's data.</div>`;
+ $('#strat').innerHTML=`<table><tr><th>Strategy</th><th>Vote</th><th>Weight</th><th>Points</th><th>Reasoning</th></tr>${A.v.map(o=>`<tr><td>${o.k}</td><td class="${CLS(o.sg)}">${o.sg>0?'BUY':o.sg<0?'SELL':'NEUTRAL'}</td><td>${o.w.toFixed(1)}</td><td class="mono ${CLS(o.pts)}">${sgn(o.pts,1)}</td><td class="why">${o.why}</td></tr>`).join('')}<tr><td><b>Net score</b></td><td colspan="2" class="mu">BUY ≥ +30 · SELL ≤ −30</td><td class="mono ${CLS(A.net)}"><b>${sgn(A.net,1)}</b></td><td class="why">Weights adapt to regime: ${A.rg.note}</td></tr></table>`;
+ calc();indic();
+ const pv=I.piv(cs,cs.length-150),sup=pv.L.filter(p=>p.p<c.c).pop(),res=pv.H.filter(p=>p.p>c.c).pop();st.lv={sup,res};
+ $('#reg').innerHTML=`<div class="stats"><div class="stat"><span>Regime</span><b>${A.rg.label}</b></div><div class="stat"><span>Volatility vs 100-bar avg</span><b>${A.rg.ratio.toFixed(2)}×</b></div><div class="stat"><span>EMA50 slope (ATR)</span><b>${sgn(A.rg.slope)}</b></div></div><p class="mu">${A.rg.note}</p><table><tr><td class="mu">Nearest support</td><td class="mono up">${sup?fp(sup.p):'—'}</td></tr><tr><td class="mu">Nearest resistance</td><td class="mono dn">${res?fp(res.p):'—'}</td></tr>${I.fib(cs).map(f=>`<tr><td class="mu">Fib ${(f.r*100).toFixed(1)}%</td><td class="mono">${fp(f.p)}</td></tr>`).join('')}</table>`;
+ draw()}
+function indic(){const{cs,ind:x}=st.e,i=cs.length-1,c=x.c[i],pv=I.piv(cs,cs.length-120),H=pv.H.slice(-2),L=pv.L.slice(-2);
+ const ms=H.length<2||L.length<2?'n/a':H[1].p>H[0].p&&L[1].p>L[0].p?'Bullish (HH/HL)':H[1].p<H[0].p&&L[1].p<L[0].p?'Bearish (LH/LL)':'Range / transition';
+ const bo=S[6].f(x,cs,i),pt=I.pat(cs,i),m=x.macd,r=x.rsi[i],b=x.bb,pb=(c-b.l[i])/(b.u[i]-b.l[i]);
+ const row=(k,v,cl='')=>`<tr><td class="mu">${k}</td><td class="mono ${cl}">${v}</td></tr>`;
+ $('#ind').innerHTML=`<table>${row('RSI (14)',r.toFixed(1)+(r>70?' · overbought':r<30?' · oversold':' · neutral'),r>70?'dn':r<30?'up':'')}${row('MACD / Signal / Hist',`${m.m[i].toPrecision(3)} / ${m.s[i].toPrecision(3)} / ${m.h[i].toPrecision(3)}`,m.h[i]>=0?'up':'dn')}${row('EMA 20',fp(x.e20[i]),c>x.e20[i]?'up':'dn')}${row('EMA 50',fp(x.e50[i]),c>x.e50[i]?'up':'dn')}${row('EMA 200',fp(x.e200[i]),c>x.e200[i]?'up':'dn')}${row('Bollinger U / M / L',`${fp(b.u[i])} / ${fp(b.m[i])} / ${fp(b.l[i])}`)}${row('Bollinger %B',(pb*100).toFixed(0)+'%')}${row('ATR (14)',fp(x.atr[i])+` (${(x.atr[i]/c*100).toFixed(2)}%)`)}${row('Volume vs 20-bar avg',(cs[i].v/x.va[i]).toFixed(2)+'×')}${row('Market structure',ms,ms.startsWith('Bull')?'up':ms.startsWith('Bear')?'dn':'')}${row('Breakout',bo[1],CLS(bo[0]))}${row('Candle pattern',pt.length?pt.map(z=>z[0]).join(', '):'None')}</table>`}
+function calc(){const{ind:x,cs}=st.e,i=cs.length-1,A=st.A,c=cs[i].c,bal=+$('#bal').value||0,rk=+$('#rk').value||0,en=+$('#en').value||c,s=setup(A.sig||A.net,en,x.atr[i],bal,rk);
+ $('#setup').innerHTML=`<div class="${CLS(s.d)}"><b>${A.sig?SIGN(A.sig)+' setup':'No active signal — hypothetical '+(s.d>0?'long':'short')+' setup'}</b></div><table>
+ <tr><td class="mu">Entry ${en===c?'(market)':''}</td><td class="mono">${fp(en)}</td></tr><tr><td class="mu">Stop-loss (1.5×ATR)</td><td class="mono dn">${fp(s.stop)}</td></tr>
+ ${s.tps.map((t,k)=>`<tr><td class="mu">TP${k+1} (1:${t.R})</td><td class="mono up">${fp(t.p)} <span class="mu">· +${fp(t.gain,{d:2})}</span></td></tr>`).join('')}
+ <tr><td class="mu">Risk per unit</td><td class="mono">${s.pct.toFixed(2)}% of entry</td></tr><tr><td class="mu">Position size</td><td class="mono">${s.units.toFixed(s.units<10?4:2)} units (${fp(s.notional,{d:2})})</td></tr><tr><td class="mu">Maximum loss</td><td class="mono dn">−${fp(s.maxLoss,{d:2})}</td></tr></table>
+ <div class="note">Reward figures are potential outcomes, not expectations. Position size = balance × risk % ÷ stop distance.</div>`}
+/* ============ Chart ============ */
+function draw(){const cv=$('#chart'),W=cv.clientWidth,H=cv.clientHeight,dp=devicePixelRatio||1;cv.width=W*dp;cv.height=H*dp;const g=cv.getContext('2d');g.scale(dp,dp);
+ const{cs,ind:X}=st.e,N=W<500?50:90,s=cs.length-N,vis=cs.slice(s),pw=W-58,ph=H-56,cw=pw/N,V=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim(),CM=V('--mut'),CB=V('--bd'),CG=V('--g'),CR=V('--r');st.geo={s,cw,pw,N};let hi=Math.max(...vis.map(c=>c.h)),lo=Math.min(...vis.map(c=>c.l));
+ if($('#oB').checked)for(let i=s;i<cs.length;i++){hi=Math.max(hi,X.bb.u[i]);lo=Math.min(lo,X.bb.l[i])}
+ const y=p=>8+(hi-p)/(hi-lo)*(ph-8),x=i=>(i-s+.5)*cw;g.font='10px ui-monospace,monospace';g.fillStyle=CM;g.strokeStyle=CB;g.lineWidth=1;
+ for(let k=0;k<=4;k++){const p=lo+(hi-lo)*k/4;g.beginPath();g.moveTo(0,y(p));g.lineTo(pw,y(p));g.stroke();g.fillText(fp(p),pw+4,y(p)+3)}
+ const line=(arr,col)=>{g.strokeStyle=col;g.beginPath();let f=1;for(let i=s;i<cs.length;i++){if(isNaN(arr[i]))continue;f?g.moveTo(x(i),y(arr[i])):g.lineTo(x(i),y(arr[i]));f=0}g.stroke()},hl=(p,col,t)=>{if(p<lo||p>hi)return;g.strokeStyle=col;g.setLineDash([4,4]);g.beginPath();g.moveTo(0,y(p));g.lineTo(pw,y(p));g.stroke();g.setLineDash([]);g.fillStyle=col;g.fillText(t,4,y(p)-3)};
+ if($('#oB').checked){line(X.bb.u,'#4c8dff55');line(X.bb.l,'#4c8dff55')}
+ if($('#oF').checked)I.fib(cs).forEach(f=>hl(f.p,'#a78bfa','Fib '+f.r));
+ if($('#oS').checked){if(st.lv.sup)hl(st.lv.sup.p,'#22c55e','Support');if(st.lv.res)hl(st.lv.res.p,'#ef4444','Resistance')}
+ const mv=Math.max(...vis.map(c=>c.v));
+ vis.forEach((c,k)=>{const i=s+k,up=c.c>=c.o,col=up?CG:CR;g.fillStyle=col;g.strokeStyle=col;g.beginPath();g.moveTo(x(i),y(c.h));g.lineTo(x(i),y(c.l));g.stroke();g.fillRect(x(i)-cw*.35,Math.min(y(c.o),y(c.c)),cw*.7,Math.max(1,Math.abs(y(c.o)-y(c.c))));g.globalAlpha=.35;g.fillRect(x(i)-cw*.35,H-c.v/mv*40,cw*.7,c.v/mv*40);g.globalAlpha=1});
+ if($('#oE').checked){line(X.e20,'#f5b942');line(X.e50,'#4c8dff');line(X.e200,'#e879f9')}
+ g.fillStyle=CM;g.fillText('EMA20 (yellow) · EMA50 (blue) · EMA200 (pink)',6,H-44);
+ if(st.hov!=null&&st.hov>=s&&cs[st.hov]){const i=st.hov,c=cs[i],px=x(i),ln=[new Date(c.t).toLocaleString([],{dateStyle:'short',timeStyle:'short'}),`O ${fp(c.o)}  H ${fp(c.h)}`,`L ${fp(c.l)}  C ${fp(c.c)}`,`Vol ${fv(c.v)}  RSI ${isNaN(X.rsi[i])?'—':X.rsi[i].toFixed(1)}`];
+  g.strokeStyle=CM;g.setLineDash([3,3]);g.beginPath();g.moveTo(px,0);g.lineTo(px,ph+8);g.stroke();
+  if(st.hy!=null&&st.hy>8&&st.hy<ph){g.beginPath();g.moveTo(0,st.hy);g.lineTo(pw,st.hy);g.stroke();g.setLineDash([]);const pr=hi-(st.hy-8)/(ph-8)*(hi-lo);g.fillStyle=V('--ac');g.fillRect(pw,st.hy-8,58,16);g.fillStyle='#fff';g.fillText(fp(pr),pw+4,st.hy+3)}
+  g.setLineDash([]);const bw=Math.max(...ln.map(t=>g.measureText(t).width))+16,bh=ln.length*14+8,bx=Math.max(4,Math.min(px<W/2?px+14:px-bw-14,W-bw-4));
+  g.fillStyle=V('--card');g.strokeStyle=CB;g.fillRect(bx,6,bw,bh);g.strokeRect(bx,6,bw,bh);g.fillStyle=V('--tx');ln.forEach((t,k)=>g.fillText(t,bx+8,20+k*14))}}
+/* ============ Backtest / history / alerts UI ============ */
+const opts=(arr,f=x=>x)=>arr.map(x=>`<option>${f(x)}</option>`).join('');
+function initUI(){
+ fillAl();$('#ex').innerHTML=opts(Object.keys(Data.EX));$('#ex').value=st.ex;$('#tfs').innerHTML=Object.keys(TF).map(t=>`<button data-t="${t}" class="${t===st.tf?'on':''}">${t}</button>`).join('');
+ $('#btf').innerHTML=`<div><label>Asset (type any coin)</label><input id="ba" list="al" value="${st.a.s}"></div><div><label>Strategy</label><select id="bs"><option>All</option>${opts(S,s=>s.k)}</select></div><div><label>Timeframe</label><select id="bt">${opts(Object.keys(TF))}</select></div><div><label>Period</label><select id="bp"><option value="250">Last 250 bars</option><option value="500" selected>Last 500 bars</option><option value="1000">Max available (~800 bars live)</option></select></div><div><label>Starting balance</label><input id="bb" type="number" value="10000"></div><div><label>Risk per trade %</label><input id="br" type="number" value="1" step=".1"></div><div><label>Fee+slippage per side %</label><input id="bf" type="number" value="0.12" step=".01"></div>`;
+ $('#bt').value='1H';$('#ht').innerHTML=opts(Object.keys(TF));$('#ht').value='1H';
+ $('#aa').value=st.a.s;$('#at').innerHTML=opts(Object.keys(TF));$('#at').value='1H';
+ $('#nav').onclick=e=>{const v=e.target.dataset.v;if(!v)return;document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b===e.target));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));if(v==='hist')hist();if(v==='dash')draw()};
+ $('#tfs').onclick=e=>{const t=e.target.dataset.t;if(!t)return;st.tf=t;document.querySelectorAll('#tfs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));load()};
+ $('#q').onchange=()=>{const v=$('#q').value.toLowerCase().trim(),a=ASSETS.find(a=>a.s.toLowerCase()===v)||ASSETS.find(a=>a.s.toLowerCase().includes(v));if(a){st.a=a;$('#q').value=a.s;load()}};
+ $('#bal').value=P.bal||10000;$('#rk').value=P.rk||1;$('#q').value=st.a.s;
+ ['bal','rk','en'].forEach(i=>$('#'+i).oninput=()=>{calc();sp()});
+ $('#th').onclick=()=>{const d=document.documentElement,cur=d.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'),n=cur==='light'?'dark':'light';d.dataset.theme=n;LS.set('theme',n);st.e&&draw()};
+ const cv=$('#chart'),pm=e=>{const r=cv.getBoundingClientRect(),g=st.geo;if(!g)return;const k=Math.floor((e.clientX-r.left)/g.cw);st.hov=k>=0&&k<g.N?g.s+k:null;st.hy=e.clientY-r.top;draw()};
+ cv.onpointermove=pm;cv.onpointerdown=pm;cv.onpointerleave=cv.onpointercancel=()=>{st.hov=null;draw()};['oE','oB','oF','oS'].forEach(i=>$('#'+i).onchange=draw);addEventListener('resize',()=>st.e&&draw());
+ $('#run').onclick=runBT;$('#cmp').onclick=cmpBT;$('#scan').onclick=scanBT;
+ $('#ex').onchange=async()=>{st.ex=$('#ex').value;try{const n=await loadList(st.ex);toast(st.ex+': '+n+' USDT coins loaded');st.a=ASSETS[0];$('#q').value=st.a.s;$('#ba').value=st.a.s;$('#aa').value=st.a.s;load()}catch(e){toast('Could not load '+st.ex+' ('+(e.message||e)+'). Try another exchange.')}};$('#ha').onchange=$('#ht').onchange=hist;$('#add').onclick=addAlert}
+async function runBT(){const a=$$a($('#ba').value);if(!a)return toast('Coin not found on '+st.ex);const tf=$('#bt').value,e=await ent(a,tf),bal=+$('#bb').value||1e4,r=BT.run(e,{strat:$('#bs').value,bars:+$('#bp').value,bal,risk:+$('#br').value||1,fee:+$('#bf').value||0}),m=(k,v,c='')=>`<div class="stat"><span>${k}</span><b class="${c}">${v}</b></div>`;
+ $('#btr').innerHTML=tn(a,tf,e)+`<div class="stats">${m('Total trades',r.n)}${m('Winning',r.w,'up')}${m('Losing',r.l,'dn')}${m('Historical win rate',r.wr.toFixed(1)+'%')}${m('Profit factor',isFinite(r.pf)?r.pf.toFixed(2):'∞')}${m('Max drawdown',r.dd.toFixed(1)+'%','dn')}${m('Net P/L',sgn(r.net,0),r.net>=0?'up':'dn')}${m('Avg risk/reward (realized)','1:'+(r.rl?(r.rw/r.rl).toFixed(2):'—'))}${m('Largest win','+'+r.bw.toFixed(0),'up')}${m('Largest loss',r.bl.toFixed(0),'dn')}</div>`;
+ const cv=$('#eq'),W=cv.clientWidth,H=160,dp=devicePixelRatio||1;cv.width=W*dp;cv.height=H*dp;const g=cv.getContext('2d');g.scale(dp,dp);const c=r.curve,mn=Math.min(...c),mx=Math.max(...c);g.strokeStyle=r.net>=0?'#22c55e':'#ef4444';g.lineWidth=2;g.beginPath();c.forEach((v,i)=>{const px=i/Math.max(1,c.length-1)*(W-4)+2,py=H-8-(v-mn)/((mx-mn)||1)*(H-16);i?g.lineTo(px,py):g.moveTo(px,py)});g.stroke();g.fillStyle='#8b98a5';g.fillText('Equity curve',6,12)}
+async function cmpBT(){const a=$$a($('#ba').value);if(!a)return toast('Coin not found on '+st.ex);const tf=$('#bt').value,e=await ent(a,tf),bal=+$('#bb').value||1e4,o={bars:+$('#bp').value,bal,risk:+$('#br').value||1,fee:+$('#bf').value||0},cs=e.cs,s0=Math.max(200,cs.length-o.bars),bh=(cs[cs.length-1].c/cs[s0].c-1)*bal;
+ const rows=['All',...S.map(z=>z.k)].map(k=>({k,r:BT.run(e,{...o,strat:k})})).sort((p,q)=>q.r.net-p.r.net);
+ $('#cmpr').innerHTML=tn(a,tf,e)+`<table><tr><th>Strategy</th><th>Trades</th><th>Win %</th><th>Profit factor</th><th>Net P/L</th></tr>${rows.map(({k,r})=>`<tr><td>${k}</td><td>${r.n}</td><td>${r.wr.toFixed(0)}%</td><td>${isFinite(r.pf)?r.pf.toFixed(2):'∞'}</td><td class="${r.net>=0?'up':'dn'}">${sgn(r.net,0)}</td></tr>`).join('')}<tr><td class="mu">Buy &amp; hold (reference)</td><td class="mu">—</td><td class="mu">—</td><td class="mu">—</td><td class="${bh>=0?'up':'dn'}">${sgn(bh,0)}</td></tr></table><div class="note">Fees included. With 8 strategies tested, one often looks good by luck — only trust a result that also holds on other timeframes and assets.</div>`}
+const tn=(a,tf,e)=>`<div class="note" style="margin:0 0 8px">Tested: <b>${a.s}</b> · ${a.ex||'demo'} · ${tf} · ${e.live?'LIVE data':'DEMO data'}</div>`;
+async function scanBT(){const tf=$('#bt').value,o={strat:'All',bars:+$('#bp').value,bal:+$('#bb').value||1e4,risk:+$('#br').value||1,fee:+$('#bf').value||0},L=ASSETS.filter(a=>a.l).slice(0,20),Rs=[];
+ for(let i=0;i<L.length;i++){$('#scr').textContent=`Scanning ${i+1}/${L.length}: ${L[i].s}…`;try{const cs=await Data.live(L[i],tf);Rs.push({a:L[i],r:BT.run({a:L[i],cs,ind:I.all(cs)},o)})}catch(e){}}
+ Rs.sort((p,q)=>q.r.net-p.r.net);const pos=Rs.filter(x=>x.r.net>0).length,avg=Rs.reduce((t,x)=>t+x.r.net,0)/(Rs.length||1);
+ $('#scr').innerHTML=`<div class="note" style="margin:0 0 8px"><b>${st.ex}</b> · ${tf} · combined signal · fees included · <b>${pos} of ${Rs.length} coins profitable</b> · average net ${sgn(avg,0)} per ${o.bal}</div><table><tr><th>Coin</th><th>Trades</th><th>Win %</th><th>Profit factor</th><th>Net P/L</th></tr>${Rs.map(({a,r})=>`<tr><td>${a.s}</td><td>${r.n}</td><td>${r.wr.toFixed(0)}%</td><td>${isFinite(r.pf)?r.pf.toFixed(2):'∞'}</td><td class="${r.net>=0?'up':'dn'}">${sgn(r.net,0)}</td></tr>`).join('')}</table>`}
+async function hist(){const av=$('#ha').value,tf=$('#ht').value,list=av.trim()?[$$a(av)].filter(Boolean):ASSETS.filter(a=>a.l).slice(0,6);let T=[];for(const a of list){const e=await ent(a,tf);T=T.concat(BT.run(e,{strat:'All',bars:800,bal:1e4,risk:1}).T.map(t=>({...t,a})))}
+ T.sort((p,q)=>q.t-p.t);$('#hr').innerHTML=`<table><tr><th>Date</th><th>Asset</th><th>Signal</th><th>Entry</th><th>Stop Loss</th><th>Take Profit</th><th>Result</th><th>Strategy Score</th></tr>${T.slice(0,40).map(t=>`<tr><td>${new Date(t.t).toLocaleString([], {dateStyle:'short',timeStyle:'short'})}</td><td>${t.sym}</td><td class="${CLS(t.sig)}">${SIGN(t.sig)}</td><td class="mono">${fp(t.en,t.a)}</td><td class="mono">${fp(t.stop,t.a)}</td><td class="mono">${fp(t.tp,t.a)}</td><td><span class="badge ${t.res==='WIN'?'b-up':t.res==='LOSS'?'b-dn':'b-wt'}">${t.res} ${t.res==='OPEN'?'':sgn(t.r)+'R'}</span></td><td>${t.score}/100</td></tr>`).join('')||'<tr><td colspan="8" class="mu">No signals in range.</td></tr>'}</table><div class="note">Past signal outcomes do not guarantee future results. Assets without a live feed use simulated demo data.</div>`}
+/* ============ Alerts ============ */
+const AL={sigB:'BUY signal ≥',sigS:'SELL signal ≥',pa:'Price above',pb:'Price below',ra:'RSI above',rb:'RSI below',mb:'MACD bullish crossover',ms:'MACD bearish crossover',bo:'Breakout detected'};
+async function addAlert(){const a=$$a($('#aa').value),tf=$('#at').value;await ent(a,tf);st.alerts.push({id:Date.now(),a,tf,ty:$('#ay').value,v:+$('#av').value,done:null});alerts()}
+function alerts(){LS.set('alerts',st.alerts.map(x=>({...x,a:x.a.s,ex:x.a.ex})));$('#alist').innerHTML=`<table><tr><th>Asset</th><th>TF</th><th>Condition</th><th>Status</th><th></th></tr>${st.alerts.map(x=>`<tr><td>${x.a.s}</td><td>${x.tf}</td><td>${AL[x.ty]}${/sig|^p|^r[ab]/.test(x.ty)?' '+x.v:''}</td><td>${x.done?`<span class="badge b-up">Triggered ${x.done}</span>`:'<span class="badge b-wt">Active</span>'}</td><td><button data-d="${x.id}">✕</button></td></tr>`).join('')||'<tr><td colspan="5" class="mu">No alerts yet.</td></tr>'}</table>`}
+$('#alist').onclick=e=>{const d=e.target.dataset.d;if(d){st.alerts=st.alerts.filter(x=>x.id!=d);alerts()}};
+function checkAlerts(){let ch=0;st.alerts.forEach(al=>{if(al.done)return;const e=Cache[ck(al.a,al.tf)];if(!e)return;const{cs,ind:x}=e,i=cs.length-1,c=cs[i].c;let ok=false;
+ if(al.ty==='pa')ok=c>al.v;else if(al.ty==='pb')ok=c<al.v;else if(al.ty==='ra')ok=x.rsi[i]>al.v;else if(al.ty==='rb')ok=x.rsi[i]<al.v;
+ else if(al.ty==='mb')ok=x.macd.h[i]>0&&x.macd.h[i-1]<=0;else if(al.ty==='ms')ok=x.macd.h[i]<0&&x.macd.h[i-1]>=0;else if(al.ty==='bo')ok=S[6].f(x,cs,i)[0]!==0;
+ else{const A=analyze(x,cs,i);ok=A.sig===(al.ty==='sigB'?1:-1)&&A.score>=al.v}
+ if(ok){al.done=new Date().toLocaleTimeString();ch=1;toast(`Alert: ${al.a.s} ${al.tf} — ${AL[al.ty]}${/sig|^p|^r[ab]/.test(al.ty)?' '+al.v:''}`)}});if(ch)alerts()}
+function toast(t){const d=document.createElement('div');d.textContent=t;$('#toast').append(d);setTimeout(()=>d.remove(),6000)}
+/* ============ Simulated live feed ============ */
+setInterval(()=>{if(!st.e)return;const used=new Set([st.e,...st.alerts.map(x=>Cache[ck(x.a,x.tf)])]);Object.values(Cache).forEach(e=>{if(e.live){if(used.has(e)&&!e.ws&&Date.now()-(e.ts||0)>4000)Data.poll(e)}else{Data.tick(e.cs,e.a,e.tf);e.ind=I.all(e.cs)}});render();checkAlerts()},2500);
+addEventListener('unhandledrejection',e=>toast('Error: '+((e.reason&&e.reason.message)||e.reason)));
+(async()=>{try{await loadList(st.ex)}catch(e){toast('Could not load '+st.ex+' coin list ('+(e.message||e)+') — using built-in list')}
+ st.a=$$a(P.a)||ASSETS[0];st.alerts=LS.get('alerts',[]).map(x=>({...x,a:ASSETS.find(z=>z.s===x.a&&z.ex===x.ex)||$$a(x.a)})).filter(x=>x.a);
+ initUI();alerts();load();st.alerts.forEach(x=>ent(x.a,x.tf).catch(()=>{}))})();
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
