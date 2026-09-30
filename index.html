@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0f14"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#0b0f14"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
 <title>TradeMind — Analyze Smarter. Trade With Data.</title>
 <style>
 :root{--bg:#0b0f14;--card:#121821;--bd:#1f2833;--tx:#e6edf3;--mut:#8b98a5;--g:#22c55e;--r:#ef4444;--y:#f5b942;--ac:#4c8dff;--in:#0d131b;--bar:#1a222d;--bu:#12351f;--bdn:#3b1518;--bw:#3a2a05;--tt:#182231;--dmd:#5a4210;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -32,7 +32,21 @@ canvas{width:100%;display:block;touch-action:pan-y}#chart{height:340px}
 .b-up{background:var(--bu);color:var(--g)}.b-dn{background:var(--bdn);color:var(--r)}.b-wt{background:var(--bw);color:var(--y)}
 #toast{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:9}#toast div{background:var(--tt);border:1px solid var(--ac);padding:10px 14px;border-radius:10px;max-width:300px}
 footer{color:var(--mut);font-size:11px;text-align:center;padding:16px}
+
+#splash{position:fixed;inset:0;z-index:99;background:radial-gradient(120% 80% at 50% 38%,#0d1830 0%,#070b12 60%,#04060a 100%);display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;transition:opacity .65s ease;cursor:pointer;overflow:hidden;padding:calc(env(safe-area-inset-top,0px) + 8vh) 16px calc(env(safe-area-inset-bottom,0px) + 6vh)}
+#spc{position:absolute;inset:0;width:100%;height:100%}
+#splash>div{position:relative;pointer-events:none}
+.sp-logo{font:600 clamp(28px,8vw,44px)/1 Cinzel,Georgia,serif;letter-spacing:.16em;background:linear-gradient(180deg,#fff,#a9c4ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:spIn 1.2s ease both}
+.sp-logo i{font-style:normal;background:linear-gradient(180deg,#8fb8ff,#4c8dff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sp-tag{margin-top:10px;font:500 clamp(9px,2.6vw,12px)/1.4 Cinzel,Georgia,serif;letter-spacing:.32em;text-transform:uppercase;color:#7d8ba3;animation:spIn 1.6s .3s ease both}
+.sp-name{font:400 clamp(30px,9vw,44px)/1.1 "Great Vibes","Snell Roundhand","Apple Chancery",cursive;background:linear-gradient(100deg,#8a6d2f,#f3dd9a 35%,#fff6d6 50%,#e2b95a 70%,#8a6d2f);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:spIn 1.8s .6s ease both,shine 5s 2s linear infinite}
+.sp-hand{margin-top:6px;font:600 clamp(12px,3.4vw,15px)/1.2 Cinzel,Georgia,serif;letter-spacing:.34em;text-indent:.34em;background:linear-gradient(100deg,#8a6d2f,#f3dd9a 35%,#fff6d6 50%,#e2b95a 70%,#8a6d2f);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.88;animation:spIn 1.8s .9s ease both,shine 5s 2s linear infinite}
+.sp-hint{margin-top:18px;font:500 10px/1 system-ui,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#4c5a72;animation:spIn 1s 2.2s ease both,pulse 2.4s 3s ease-in-out infinite}
+@keyframes spIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes shine{to{background-position:-220% 0}}@keyframes pulse{50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.sp-logo,.sp-tag,.sp-name,.sp-hand,.sp-hint{animation:none}}
 </style></head><body>
+<div id="splash"><canvas id="spc"></canvas><div><div class="sp-logo">Trade<i>Mind</i></div><div class="sp-tag">Analyze Smarter. Trade With Data.</div></div><div><div class="sp-name">Shammah Orjiako</div><div class="sp-hand">M&yen;$T&pound;R&yen;_G&Uacute;&yen;</div><div class="sp-hint">tap to continue</div></div></div>
+<script>setTimeout(function(){var s=document.getElementById('splash');if(s&&s.style.display!=='none'){s.style.opacity=0;setTimeout(function(){s.style.display='none'},700)}},14000)</script>
 <header><div class="logo"><b>Trade<i>Mind</i></b><small>Analyze Smarter. Trade With Data.</small></div>
 <div><input id="q" list="al" placeholder="Search BTC, EUR/USD, NASDAQ…" style="width:min(260px,70vw)"><select id="mk"></select> <select id="ex"></select> <datalist id="al"></datalist> <button id="th" title="Toggle light/dark theme">◐ Theme</button></div></header>
 <div class="demo" id="dm">DEMO DATA — NOT LIVE MARKET DATA</div>
@@ -295,4 +309,35 @@ addEventListener('unhandledrejection',e=>toast('Error: '+((e.reason&&e.reason.me
  st.a=$$a(P.a)||ASSETS[0];st.m=st.a.m;st.alerts=LS.get('alerts',[]).map(x=>({...x,a:ASSETS.find(z=>z.s===x.a&&z.ex===x.ex)||$$a(x.a)})).filter(x=>x.a);
  initUI();alerts();load();st.alerts.forEach(x=>ent(x.a,x.tf).catch(()=>{}))})();
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+/* ============ Animated splash ============ */
+const Splash=(()=>{let raf,run=0,t0=0,W,H,dpr,g,cv,C=[],cur,lo=99,hi=101,slide=0,last=0,N=30,minMs=4800;
+ const el=()=>document.getElementById('splash'),mix=m=>`${Math.round(239+(34-239)*m)},${Math.round(68+(197-68)*m)},${Math.round(68+26*m)}`,
+ mk=o=>{const pu=Math.min(.85,Math.max(.15,.5-(o-100)*.04)),up=Math.random()<pu?1:-1,c=o+up*o*(.008+Math.random()*.02);return{o,tc:c,eh:Math.max(o,c)+o*Math.random()*.012,el:Math.min(o,c)-o*Math.random()*.012,first:Math.random()<.5,dur:C.length<N*.6?170+Math.random()*110:750+Math.random()*550,s:performance.now(),p:o,h:o,l:o,m:up>0?1:0,done:0,seed:Math.random()*50}},
+ path=(c,t)=>{const A=c.o,B=c.first?c.eh:c.el,D=c.first?c.el:c.eh,E=c.tc,k=[[0,A],[.3,B],[.65,D],[1,E]];let i=0;while(i<2&&t>k[i+1][0])i++;const u=Math.min(1,Math.max(0,(t-k[i][0])/(k[i+1][0]-k[i][0]))),e=(1-Math.cos(Math.PI*u))/2;return k[i][1]+(k[i+1][1]-k[i][1])*e},
+ rr=(x,y,w,h,r)=>{g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()};
+ function size(){cv=document.getElementById('spc');W=cv.clientWidth;H=cv.clientHeight;dpr=Math.min(2,devicePixelRatio||1);cv.width=W*dpr;cv.height=H*dpr;g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);N=W<500?24:40}
+ function step(now,dt){const c=cur,t=(now-c.s)/c.dur;
+  if(t>=1){c.p=c.tc;c.h=Math.max(c.h,c.p);c.l=Math.min(c.l,c.p);c.m=c.p>=c.o?1:0;c.done=1;const n=mk(c.p);if(C.length>=N){C.shift();slide+=(W*.80)/N}C.push(n);cur=n}
+  else{const j=(Math.sin(t*38+c.seed)*.5+Math.sin(t*91+c.seed*2)*.3+(Math.random()-.5)*.6)*c.o*.0009*(1-t*t*t);c.p=path(c,t)+j;c.h=Math.max(c.h,c.p);c.l=Math.min(c.l,c.p);c.m+=((c.p>=c.o?1:0)-c.m)*Math.min(1,dt*10)}
+  let mn=1e9,mx=-1e9;C.forEach(k=>{mn=Math.min(mn,k.l);mx=Math.max(mx,k.h)});const pad=(mx-mn)*.2+.15,f=1-Math.exp(-dt*3);lo+=(mn-pad-lo)*f;hi+=(mx+pad-hi)*f;slide*=Math.exp(-dt*7)}
+ function draw(now){g.clearRect(0,0,W,H);const L=W*.06,Rt=W*.86,T=H*.24,B=H*.72,cw=(Rt-L)/N,bw=cw*.58,y=p=>B-(p-lo)/(hi-lo)*(B-T);
+  g.strokeStyle='rgba(255,255,255,.045)';g.lineWidth=1;for(let i=0;i<=4;i++){const yy=T+(B-T)*i/4;g.beginPath();g.moveTo(L,yy);g.lineTo(Rt+W*.04,yy);g.stroke()}
+  C.forEach((k,i)=>{const x=L+i*cw+cw/2+slide,fade=Math.min(1,Math.max(0,(x-L)/(cw*2.5)));if(fade<=0)return;const col=mix(k.m),live=!k.done;g.save();g.globalAlpha=fade;
+   g.shadowColor=`rgba(${col},${live?.9:.45})`;g.shadowBlur=live?16:8;g.strokeStyle=`rgba(${col},.9)`;g.lineWidth=Math.max(1.3,cw*.07);g.beginPath();g.moveTo(x,y(k.h));g.lineTo(x,y(k.l));g.stroke();g.shadowBlur=0;
+   const y1=y(k.o),y2=y(k.p),top=Math.min(y1,y2),h=Math.max(2.5,Math.abs(y2-y1)),bx=x-bw/2,r=Math.min(3,bw/3);
+   const gr=g.createLinearGradient(0,top,0,top+h);gr.addColorStop(0,`rgba(${col},.78)`);gr.addColorStop(.5,`rgba(${col},.30)`);gr.addColorStop(1,`rgba(${col},.55)`);
+   g.shadowColor=`rgba(${col},${live?.8:.4})`;g.shadowBlur=live?18:9;g.fillStyle=gr;rr(bx,top,bw,h,r);g.fill();g.shadowBlur=0;
+   g.strokeStyle='rgba(255,255,255,.45)';g.lineWidth=1;g.stroke();
+   const hg=g.createLinearGradient(bx,0,bx+bw,0);hg.addColorStop(0,'rgba(255,255,255,.38)');hg.addColorStop(.4,'rgba(255,255,255,.07)');hg.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=hg;rr(bx+1,top+1,bw-2,h-2,r);g.fill();
+   const sg=g.createLinearGradient(0,top,0,top+h*.45);sg.addColorStop(0,'rgba(255,255,255,.28)');sg.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=sg;rr(bx+1,top+1,bw-2,h*.45,r);g.fill();g.restore()});
+  const k=cur,x=L+(C.length-1)*cw+cw/2+slide,py=y(k.p),col=mix(k.m);g.save();g.setLineDash([3,4]);g.strokeStyle=`rgba(${col},.55)`;g.beginPath();g.moveTo(x,py);g.lineTo(Rt+W*.04,py);g.stroke();g.setLineDash([]);
+  g.fillStyle=`rgba(${col},.95)`;rr(Rt+W*.045,py-9,W*.09,18,4);g.fill();g.fillStyle='#fff';g.font='600 10px ui-monospace,monospace';g.textAlign='center';g.fillText((k.p*642.15).toFixed(2),Rt+W*.045+W*.045,py+3.5);
+  g.beginPath();g.arc(x,py,2.6+Math.sin(now/180)*1,0,7);g.fillStyle=`rgba(${col},1)`;g.shadowColor=`rgba(${col},1)`;g.shadowBlur=12;g.fill();g.restore()}
+ function frame(now){if(!run)return;raf=requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000||.016);last=now;step(now,dt);draw(now);if(now-t0>minMs&&((typeof st!=='undefined'&&st.e)||now-t0>9000))hide()}
+ function hide(){if(!run)return;run=0;cancelAnimationFrame(raf);const s=el();s.style.opacity=0;setTimeout(()=>{s.style.display='none'},700)}
+ function show(){const s=el();if(!s)return;s.style.display='flex';s.style.opacity=1;s.onclick=hide;size();minMs=matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?1200:4800;C=[];cur=mk(100);C.push(cur);lo=99;hi=101;slide=0;run=1;t0=last=performance.now();raf=requestAnimationFrame(frame)}
+ addEventListener('resize',()=>{if(run)size()});return{show,hide,n:()=>C.length}})();
+try{Splash.show()}catch(e){const s=document.getElementById('splash');if(s)s.style.display='none'}
+document.querySelector('.logo').onclick=()=>{try{Splash.show()}catch(e){}};
 </script></body></html>
